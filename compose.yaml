@@ -74,7 +74,7 @@ services:
 
   # API gateway: auth (virtual keys), quotas, audit. The only path to vLLM.
   litellm-gateway:
-    image: ghcr.io/berriai/litellm-database:v1.104.2@sha256:5a9ff0fd7177372f2ccd8949cb121f67e281f4d13d026af51f9c096c0626f50a
+    image: ghcr.io/berriai/litellm-database:v1.108.0@sha256:80c91fd00cc039e8880474f539544b919f14cd258a22f22ce4218b864c4ff14a
     restart: unless-stopped
     command: ["--port", "4000", "--config", "/app/config.yaml"]
     ports:
@@ -111,7 +111,7 @@ services:
   # Web UI: human users authenticate here via Keycloak OIDC. Public access only
   # through the TLS ingress; the loopback port is for operators.
   open-webui:
-    image: ghcr.io/open-webui/open-webui:v0.11.4@sha256:9591b13f13843c7721c2b8eaf7382846c81b3ffe126526d1888d1fed50c6a33f
+    image: ghcr.io/open-webui/open-webui:v0.13.3@sha256:46b59158e6558eeb980bc828e0f1b30238ad24d82ed84d5e5eda1dab2a082f14
     restart: unless-stopped
     ports:
       - "127.0.0.1:8080:8080"
@@ -219,7 +219,7 @@ services:
   # One-shot tool, never started by a deploy: scripts/ops/tls-letsencrypt.sh
   # runs it with `docker compose run --rm certbot ...`.
   certbot:
-    image: certbot/certbot:v5.8.0@sha256:f70ad0adbb7e117f0fe42a63c553f28ea451edabc0148757b6efcd9735acaa20
+    image: certbot/certbot:v5.9.0@sha256:bc93cb710b413e6b456d622f9b0133b3e109c0a78c2ed9976af43d209b0a1805
     profiles: [tools]
     volumes:
       - ${TLS_DIR:?}/letsencrypt:/etc/letsencrypt
